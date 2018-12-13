@@ -31,31 +31,31 @@ wget curl gcc nano \
     
 # Install gurobi
 RUN mkdir  /opt/gurobi                                  && \
-    wget  https://packages.gurobi.com/8.1/gurobi8.1.0_linux64.tar.gz && \
-    tar xvfz gurobi8.1.0_linux64.tar.gz                              && \                     
-    cp -rf gurobi810/linux64/ /opt/gurobi/                && \
+    wget  https://packages.gurobi.com/6.5/gurobi6.5.1_linux64.tar.gz && \
+    tar xvfz gurobi6.5.1_linux64.tar.gz                              && \                     
+    cp -rf gurobi651/linux64/ /opt/gurobi/                && \
     rm -rf *.tar.gz      
 
 
 
-RUN  cd gurobi810/linux64/ && python setup.py install && cd ../..                   
+RUN  cd gurobi651/linux64/ && python setup.py install && cd ../..                   
 
 
     # Clean up
 #RUN rm -rf ${GUROBI_HOME}/docs                             && \
 #    rm -rf ${GUROBI_HOME}/examples                         && \
 #    rm -rf ${GUROBI_HOME}/src                              && \
-#    rm -rf /var/cache/apk/*                                && \
+    #rm -rf /var/cache/apk/*                                && \
 #    rm -rf /tmp/*                                          && \
 #    rm -rf /var/log/*                                      && \
 #    rm -rf /gurobi810                                      && \
 #    rm /home/gurobi/gurobi${GUROBI_VERSION}_linux64.tar.gz /
-# Remove obsolete packages
-#apk del             \
-#  ca-certificates   \
-#  gzip              \
-#  curl              \
-#  wget
+    # Remove obsolete packages
+    #apk del             \
+    #  ca-certificates   \
+    #  gzip              \
+    #  curl              \
+    #  wget
 
 COPY docker-entrypoint.sh /opt/gurobi/linux64/bin
 #${GUROBI_HOME}/bin
@@ -80,6 +80,6 @@ VOLUME /home
 #USER gurobi
 
 ENTRYPOINT ["docker-entrypoint.sh"]
-CMD ["/bin/bash"]
+#CMD ["/bin/bash"]
 
 #sudo docker run -e 'GUROBI_LICENSE=541a93a0-fca3-11e8-9f3c-02e454ff9c50' -v /license:/opt/gurobi/license.lic  --network 'host' gurobi
